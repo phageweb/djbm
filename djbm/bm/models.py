@@ -1,31 +1,42 @@
 from django.db import models
 from django.utils import timezone
 
-# Field name Type   Field size AllowZeroLength  DefaultValue
-# ID  long integer, autonumber 
-# Section integer 
-# Table integer  
-# Round integer  
-# Board  integer 
-# PairNS  integer 
-# PairEW integer
-# Declarer integer 
-# NS/EW  text   2  yes 
-# Contract text   10  yes 
-# Result  text   10  yes 
-# LeadCard text   10  yes 
-# Remarks text   255  yes 
-# DateLog date/time 
-# TimeLog date/time 
-# Processed true/false       false 
-# Processed1 true/false       false 
-# Processed2 true/false       false 
-# Processed3 true/false       false 
-# Processed4 true/false       false 
-# Erased  true/false       false 
+class Clients(models.Model):
+    clients_id = models.AutoField(primary_key=True)
+    Computer   = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return str(self.clients_id)
 
+class Section(models.Model):
+    Section = models.IntegerField() 
+    Table = models.IntegerField() 
+    ComputerID = models.IntegerField(default='0') 
+    Status = models.IntegerField(default='0') 
+    LogOnOff = models.IntegerField(default='2') 
+    UpdateFromRoad = models.IntegerField(default='0') 
+    CurrentRound = models.IntegerField(default='0') 
+    CurrentBoard = models.IntegerField(default='0') 
+    Group = models.IntegerField(default='0') 
+    
+    def __str__(self):
+        return str(self.receivedData_id)
+
+
+class Tables(models.Model):
+    Section = models.IntegerField() 
+    Table = models.IntegerField() 
+    Round = models.IntegerField() 
+    PairNS = models.IntegerField() 
+    PairEW = models.IntegerField() 
+    LowBoard = models.IntegerField() 
+    HighBoard = models.IntegerField() 
+    CustomBoard = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return str(self.receivedData_id)
 class ReceivedData(models.Model):
-    receivedData_id = models.BigIntegerField(primary_key=True)
+    receivedData_id = models.BigIntegerField()
     Section = models.IntegerField() 
     Table = models.IntegerField() 
     Round = models.IntegerField() 
@@ -48,4 +59,4 @@ class ReceivedData(models.Model):
 
 
     def __str__(self):
-        return str(self.receivedData_id+"_"+self.table+"_"+self.Board+"_"+self.PairNS+"_"+self.PairEW)
+        return str(self.receivedData_id)
